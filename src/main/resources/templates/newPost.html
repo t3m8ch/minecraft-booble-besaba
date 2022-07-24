@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link th:replace="fragments/commonHead :: commonHead">
+  <title>Новый пост | Minecraft Booble Besaba | Портал по Minecraft</title>
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<div class="container">
+  <form action="#" th:action="@{/posts}" th:object="${post}" method="POST" class="mt-3">
+    <div class="mb-3">
+      <label for="postTitle" class="form-label">Название поста</label>
+      <input type="text" class="form-control" id="postTitle" placeholder="Как я нашёл алмазы" th:field="*{title}">
+    </div>
+    <div class="mb-3">
+      <label for="postText" class="form-label">Текст поста</label>
+      <textarea class="form-control" id="postText" placeholder="Просто взял и нашёл :)" th:field="*{text}"></textarea>
+    </div>
+    <button type="submit" id="postCreateButton" class="btn btn-primary" disabled>Создать</button>
+  </form>
+</div>
+
+<script>
+  window.addEventListener("load", () => {
+    const postTitleElement = document.querySelector("#postTitle");
+    const postTextElement = document.querySelector("#postText");
+    const postCreateButtonElement = document.querySelector("#postCreateButton");
+
+    [postTitleElement, postTextElement].forEach(
+      (el) => el.addEventListener("input", () => {
+        const formIsValid = validateTitle(postTitleElement.value) && validateText(postTextElement.value);
+        postCreateButtonElement.disabled = !formIsValid;
+      })
+    )
+
+    function validateTitle(title) {
+      const trimmedTitle = title.trim();
+      return trimmedTitle.length >= 2 && trimmedTitle.length <= 50;
+    }
+
+    function validateText(title) {
+      const trimmedText = title.trim();
+      return trimmedText.split(" ").length >= 2;
+    }
+  });
+</script>
+</body>
+</html>
