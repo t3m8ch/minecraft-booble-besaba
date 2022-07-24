@@ -29,7 +29,7 @@ class PostsController(private val postService: PostService) {
 
     @PostMapping
     fun createPost(@ModelAttribute post: NewPostViewModel): RedirectView {
-        postService.create(post)
-        return RedirectView("/")
+        val postModel = postService.create(post)
+        return RedirectView("/posts/${postModel.id}")
     }
 }
