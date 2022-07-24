@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <link th:replace="fragments/commonHead :: commonHead">
+  <title th:text="${post.title}"></title>
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<div class="container">
+  <div th:replace="fragments/post.html :: post(urn = post.urn, title = post.title, text = post.text)"></div>
+</div>
+</body>
+</html>
